@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Hadir Santri — PP Insan Mulia Yogyakarta</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --green-dark: #1a3d2b;
+    --green-mid: #2d6a4f;
+    --green-light: #52b788;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #faf7f0;
+    --cream-dark: #f0ead8;
+    --white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-mid: #4a4a4a;
+    --text-light: #888;
+    --hadir: #2d6a4f;
+    --sakit: #d48000;
+    --izin: #1a5fa8;
+    --alfa: #c0392b;
+    --shadow: 0 2px 12px rgba(26,61,43,0.10);
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--green-dark);
+    color: var(--white);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .header-logo {
+    width: 48px;
+    height: 48px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Amiri', serif;
+    font-size: 22px;
+    color: var(--green-dark);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .header-text h1 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--gold-light);
+  }
+  .header-text p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 1px;
+  }
+  .header-arabik {
+    margin-left: auto;
+    font-family: 'Amiri', serif;
+    font-size: 18px;
+    color: var(--gold-light);
+    opacity: 0.85;
+  }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    background: var(--green-mid);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-tabs-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-tabs-inner::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.65);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .tab-btn:hover { color: white; background: rgba(255,255,255,0.05); }
+  .tab-btn.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title::before {
+    content: '';
+    width: 4px;
+    height: 18px;
+    background: var(--gold);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── FORM CONTROLS ── */
+  .form-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 140px;
+  }
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  input, select {
+    padding: 9px 12px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+  }
+  input:focus, select:focus { border-color: var(--green-mid); background: white; }
+
+  .btn {
+    padding: 9px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-primary { background: var(--green-mid); color: white; }
+  .btn-primary:hover { background: var(--green-dark); }
+  .btn-gold { background: var(--gold); color: var(--green-dark); }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-danger { background: #c0392b; color: white; }
+  .btn-danger:hover { background: #a93226; }
+  .btn-outline {
+    background: none;
+    border: 1.5px solid var(--green-mid);
+    color: var(--green-mid);
+  }
+  .btn-outline:hover { background: var(--green-mid); color: white; }
+  .btn-sm { padding: 5px 11px; font-size: 12px; }
+
+  /* ── ABSENSI SECTION ── */
+  .sesi-selector {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .sesi-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--green-light);
+    background: none;
+    color: var(--green-mid);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .sesi-btn.active {
+    background: var(--green-mid);
+    color: white;
+    border-color: var(--green-mid);
+  }
+  .sesi-btn:hover:not(.active) { background: var(--cream-dark); }
+
+  /* ── ABSENSI TABLE ── */
+  .absensi-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .santri-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--cream);
+    border-radius: 10px;
+    border: 1.5px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .santri-row:hover { border-color: #ddd; }
+  .santri-no {
+    width: 28px;
+    height: 28px;
+    background: var(--green-dark);
+    color: var(--gold-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .santri-name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .status-btns {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .status-btn {
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1.5px solid #ddd;
+    background: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-mid);
+  }
+  .status-btn:hover { opacity: 0.8; }
+  .status-btn.selected-hadir { background: var(--hadir); color: white; border-color: var(--hadir); }
+  .status-btn.selected-sakit { background: var(--sakit); color: white; border-color: var(--sakit); }
+  .status-btn.selected-izin { background: var(--izin); color: white; border-color: var(--izin); }
+  .status-btn.selected-alfa { background: var(--alfa); color: white; border-color: var(--alfa); }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .badge-hadir { background: #d4edda; color: var(--hadir); }
+  .badge-sakit { background: #fff3cd; color: var(--sakit); }
+  .badge-izin { background: #cce5ff; color: var(--izin); }
+  .badge-alfa { background: #f8d7da; color: var(--alfa); }
+  .badge-none { background: #eee; color: #999; }
+
+  /* ── SUMMARY CARDS ── */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .summary-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .summary-card .num {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .summary-card .lbl {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+  .sum-hadir .num { color: var(--hadir); }
+  .sum-sakit .num { color: var(--sakit); }
+  .sum-izin .num { color: var(--izin); }
+  .sum-alfa .num { color: var(--alfa); }
+  .sum-total .num { color: var(--green-dark); }
+
+  /* ── REKAP TABLE ── */
+  .rekap-table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    background: var(--green-dark);
+    color: var(--gold-light);
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    white-space: nowrap;
+  }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--cream-dark);
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--cream); }
+
+  /* ── SANTRI MANAGEMENT ── */
+  .santri-manage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  .santri-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--cream);
+    border-radius: 8px;
+  }
+  .santri-item span { flex: 1; font-size: 14px; }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-light);
+  }
+  .empty-state .icon { font-size: 40px; margin-bottom: 12px; }
+  .empty-state p { font-size: 14px; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--green-dark);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    z-index: 9999;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s;
+    max-width: 280px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast .gold { color: var(--gold-light); font-weight: 700; }
+
+  /* ── DATE PILL ── */
+  .date-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-dark);
+    color: var(--gold-light);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    header, .nav-tabs, .btn, .sesi-selector, .no-print { display: none !important; }
+    body { background: white; }
+    .card { box-shadow: none; border: 1px solid #ddd; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .header-arabik { display: none; }
+    .status-btns { gap: 4px; }
+    .status-btn { padding: 5px 8px; font-size: 11px; }
+    .santri-name { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-logo">IM</div>
+    <div class="header-text">
+      <h1>PP Insan Mulia Yogyakarta</h1>
+      <p>Sistem Daftar Hadir Santri Digital</p>
+    </div>
+    <div class="header-arabik">الحضور</div>
+  </div>
+  <div class="nav-tabs">
+    <div class="nav-tabs-inner">
+      <button class="tab-btn active" onclick="showTab('absensi')">📋 Absensi</button>
+      <button class="tab-btn" onclick="showTab('rekap')">📊 Rekap</button>
+      <button class="tab-btn" onclick="showTab('santri')">👤 Data Santri</button>
+      <button class="tab-btn" onclick="showTab('riwayat')">🗂️ Riwayat</button>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- ══ ABSENSI ══ -->
+  <div id="tab-absensi" class="section active">
+    <div class="card">
+      <div class="card-title">Pilih Tanggal & Sesi Pengajian</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tanggal</label>
+          <input type="date" id="tgl-absensi">
+        </div>
+      </div>
+      <div class="sesi-selector" id="sesi-selector">
+        <button class="sesi-btn active" data-sesi="Ba'da Subuh" onclick="pilihSesi(this)">🌅 Ba'da Subuh</button>
+        <button class="sesi-btn" data-sesi="Ba'da Asar" onclick="pilihSesi(this)">☀️ Ba'da Asar</button>
+        <button class="sesi-btn" data-sesi="Ba'da Magrib" onclick="pilihSesi(this)">🌆 Ba'da Magrib</button>
+        <button class="sesi-btn" data-sesi="Ba'da Isya" onclick="pilihSesi(this)">🌙 Ba'da Isya</button>
+        <button class="sesi-btn" data-sesi="Doa 1/3 Malam" onclick="pilihSesi(this)">⭐ Doa 1/3 Malam</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" id="absensi-title">Daftar Hadir</div>
+
+      <!-- summary mini -->
+      <div class="summary-grid" id="mini-summary" style="margin-bottom:16px"></div>
+
+      <div class="absensi-list" id="absensi-list"></div>
+
+      <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="simpanAbsensi()">💾 Simpan Absensi</button>
+        <button class="btn btn-outline" onclick="hadirSemua()">✅ Hadir Semua</button>
+        <button class="btn btn-outline no-print" onclick="window.print()">🖨️ Cetak</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ REKAP ══ -->
+  <div id="tab-rekap" class="section">
+    <div class="card">
+      <div class="card-title">Filter Rekap</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Dari Tanggal</label>
+          <input type="date" id="rekap-dari">
+        </div>
+        <div class="form-group">
+          <label>Sampai Tanggal</label>
+          <input type="date" id="rekap-sampai">
+        </div>
+        <div class="form-group">
+          <label>Sesi</label>
+          <select id="rekap-sesi">
+            <option value="">Semua Sesi</option>
+            <option>Ba'da Subuh</option>
+            <option>Ba'da Asar</option>
+            <option>Ba'da Magrib</option>
+            <option>Ba'da Isya</option>
+            <option>Doa 1/3 Malam</option>
+          </select>
+        </div>
+        <div class="form-group" style="justify-content:flex-end;min-width:auto">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary" onclick="tampilRekap()">Tampilkan</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-grid" id="rekap-summary"></div>
+
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <div class="card-title" style="margin-bottom:0">Tabel Rekap</div>
+        <button class="btn btn-gold btn-sm" onclick="exportCSV()">⬇️ Export CSV</button>
+      </div>
+      <div class="rekap-table-wrap">
+        <div id="rekap-table-container"><div class="empty-state"><div class="icon">📊</div><p>Pilih filter lalu klik Tampilkan</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DATA SANTRI ══ -->
+  <div id="tab-santri" class="section">
+    <div class="card">
+      <div class="card-title">Tambah Santri</div>
+      <div class="form-row" style="align-items:flex-end">
+        <div class="form-group">
+          <label>Nama Santri</label>
+          <input type="text" id="input-nama" placeholder="Nama lengkap santri..." onkeydown="if(event.key==='Enter')tambahSantri()">
+        </div>
+        <button class="btn btn-primary" style="flex-shrink:0;align-self:flex-end" onclick="tambahSantri()">+ Tambah</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Daftar Santri (<span id="jumlah-santri">0</span> orang)</div>
+      <div class="santri-manage-list" id="santri-manage-list"></div>
+    </div>
+  </div>
+
+  <!-- ══ RIWAYAT ══ -->
+  <div id="tab-riwayat" class="section">
+    <div class="card">
+      <div class="card-title">Riwayat Absensi</div>
+      <div id="riwayat-list"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── STATE & STORAGE ──
+const DB = {
+  get: k => JSON.parse(localStorage.getItem(k) || 'null'),
+  set: (k, v) => localStorage.setItem(k, JSON.stringify(v)),
+};
+
+function getSantri() { return DB.get('santri') || []; }
+function saveSantri(s) { DB.set('santri', s); }
+function getAbsensi() { return DB.get('absensi') || {}; }
+function saveAbsensi(a) { DB.set('absensi', a); }
+
+// ── INIT ──
+let activeSesi = "Ba'da Subuh";
+let activeDate = today();
+
+function today() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+window.onload = () => {
+  document.getElementById('tgl-absensi').value = today();
+  activeDate = today();
+
+  // Set rekap defaults
+  const d = new Date();
+  document.getElementById('rekap-sampai').value = today();
+  d.setDate(1);
+  document.getElementById('rekap-dari').value = d.toISOString().slice(0,10);
+
+  renderAbsensi();
+  renderSantriManage();
+  renderRiwayat();
+};
+
+// ── TABS ──
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'riwayat') renderRiwayat();
+  if (name === 'rekap') tampilRekap();
+}
+
+// ── SESI ──
+function pilihSesi(btn) {
+  document.querySelectorAll('.sesi-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeSesi = btn.dataset.sesi;
+  activeDate = document.getElementById('tgl-absensi').value;
+  renderAbsensi();
+}
+
+document.addEventListener('change', e => {
+  if (e.target.id === 'tgl-absensi') {
+    activeDate = e.target.value;
+    renderAbsensi();
+  }
+});
+
+// ── ABSENSI ──
+function getKey(date, sesi) { return date + '||' + sesi; }
+
+function renderAbsensi() {
+  const santri = getSantri();
+  const absensi = getAbsensi();
+  const key = getKey(activeDate, activeSesi);
+  const data = absensi[key] || {};
+
+  document.getElementById('absensi-title').textContent =
+    `Ngaji ${activeSesi} — ${formatDate(activeDate)}`;
+
+  const list = document.getElementById('absensi-list');
+  if (!santri.length) {
+    list.innerHTML = `<div class="empty-state"><div class="icon">👥</div><p>Belum ada data santri. Tambahkan di tab <strong>Data Santri</strong>.</p></div>`;
+    renderMiniSummary({});
+    return;
+  }
+
+  list.innerHTML = santri.map((nama, i) => {
+    const status = data[nama] || '';
+    return `<div class="santri-row" id="row-${i}">
+      <div class="santri-no">${i+1}</div>
+      <div class="santri-name">${nama}</div>
+      <div class="status-btns">
+        ${['Hadir','Sakit','Izin','Alfa'].map(s =>
+          `<button class="status-btn ${status===s?'selected-'+s.toLowerCase():''}"
+            onclick="setStatus('${nama}','${s}',${i})">${s}</button>`
+        ).join('')}
+      </div>
+    </div>`;
+  }).join('');
+
+  renderMiniSummary(data, santri);
+}
+
+function setStatus(nama, status, idx) {
+  const absensi = getAbsensi();
+  const key = getKey(activeDate, activeSesi);
+  if (!absensi[key]) absensi[key] = {};
+  absensi[key][nama] = status;
+  saveAbsensi(absensi);
+  renderAbsensi();
+}
+
+function hadirSemua() {
+  const santri = getSantri();
+  const absensi = getAbsensi();
+  const key = getKey(activeDate, activeSesi);
+  if (!absensi[key]) absensi[key] = {};
+  santri.forEach(n => absensi[key][n] = 'Hadir');
+  saveAbsensi(absensi);
+  renderAbsensi();
+  toast('✅ Semua santri ditandai <span class="gold">Hadir</span>');
+}
+
+function simpanAbsensi() {
+  toast('💾 Absensi <span class="gold">tersimpan</span> di browser');
+  renderRiwayat();
+}
+
+function renderMiniSummary(data, santri) {
+  const list = santri || getSantri();
+  let h=0,s=0,iz=0,a=0;
+  list.forEach(n => {
+    const v = data[n];
+    if(v==='Hadir') h++;
+    else if(v==='Sakit') s++;
+    else if(v==='Izin') iz++;
+    else if(v==='Alfa') a++;
+  });
+  document.getElementById('mini-summary').innerHTML = `
+    <div class="summary-card sum-total"><div class="num">${list.length}</div><div class="lbl">Total</div></div>
+    <div class="summary-card sum-hadir"><div class="num">${h}</div><div class="lbl">Hadir</div></div>
+    <div class="summary-card sum-sakit"><div class="num">${s}</div><div class="lbl">Sakit</div></div>
+    <div class="summary-card sum-izin"><div class="num">${iz}</div><div class="lbl">Izin</div></div>
+    <div class="summary-card sum-alfa"><div class="num">${a}</div><div class="lbl">Alfa</div></div>
+  `;
+}
+
+// ── REKAP ──
+function tampilRekap() {
+  const dari = document.getElementById('rekap-dari').value;
+  const sampai = document.getElementById('rekap-sampai').value;
+  const sesiFilter = document.getElementById('rekap-sesi').value;
+  const santri = getSantri();
+  const absensi = getAbsensi();
+
+  if (!dari || !sampai || !santri.length) {
+    document.getElementById('rekap-table-container').innerHTML =
+      `<div class="empty-state"><div class="icon">📊</div><p>Tambahkan santri dan pilih rentang tanggal.</p></div>`;
+    return;
+  }
+
+  const sesiList = sesiFilter ? [sesiFilter] : ["Ba'da Subuh","Ba'da Asar","Ba'da Magrib","Ba'da Isya","Doa 1/3 Malam"];
+
+  // Collect all dates in range
+  const dates = [];
+  let cur = new Date(dari);
+  const end = new Date(sampai);
+  while (cur <= end) {
+    dates.push(cur.toISOString().slice(0,10));
+    cur.setDate(cur.getDate() + 1);
+  }
+
+  // Build summary per santri
+  const rekapData = santri.map(nama => {
+    let h=0,s=0,iz=0,a=0,total=0;
+    dates.forEach(d => {
+      sesiList.forEach(sesi => {
+        const key = getKey(d, sesi);
+        if (absensi[key] && absensi[key][nama]) {
+          total++;
+          const v = absensi[key][nama];
+          if(v==='Hadir') h++;
+          else if(v==='Sakit') s++;
+          else if(v==='Izin') iz++;
+          else if(v==='Alfa') a++;
+        }
+      });
+    });
+    return { nama, h, s, iz, a, total };
+  });
+
+  // Total summary
+  const totH = rekapData.reduce((x,r)=>x+r.h,0);
+  const totS = rekapData.reduce((x,r)=>x+r.s,0);
+  const totIz = rekapData.reduce((x,r)=>x+r.iz,0);
+  const totA = rekapData.reduce((x,r)=>x+r.a,0);
+
+  document.getElementById('rekap-summary').innerHTML = `
+    <div class="summary-card sum-hadir"><div class="num">${totH}</div><div class="lbl">Total Hadir</div></div>
+    <div class="summary-card sum-sakit"><div class="num">${totS}</div><div class="lbl">Total Sakit</div></div>
+    <div class="summary-card sum-izin"><div class="num">${totIz}</div><div class="lbl">Total Izin</div></div>
+    <div class="summary-card sum-alfa"><div class="num">${totA}</div><div class="lbl">Total Alfa</div></div>
+  `;
+
+  if (!rekapData.length) {
+    document.getElementById('rekap-table-container').innerHTML =
+      `<div class="empty-state"><div class="icon">📋</div><p>Belum ada data absensi di periode ini.</p></div>`;
+    return;
+  }
+
+  window._rekapData = rekapData;
+  window._rekapMeta = { dari, sampai, sesiFilter };
+
+  document.getElementById('rekap-table-container').innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nama Santri</th>
+          <th>Hadir</th>
+          <th>Sakit</th>
+          <th>Izin</th>
+          <th>Alfa</th>
+          <th>Presensi</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rekapData.map((r,i) => {
+          const pct = r.total ? Math.round(r.h/r.total*100) : 0;
+          return `<tr>
+            <td>${i+1}</td>
+            <td><strong>${r.nama}</strong></td>
+            <td><span class="badge badge-hadir">${r.h}</span></td>
+            <td><span class="badge badge-sakit">${r.s}</span></td>
+            <td><span class="badge badge-izin">${r.iz}</span></td>
+            <td><span class="badge badge-alfa">${r.a}</span></td>
+            <td>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="flex:1;background:#eee;border-radius:4px;height:6px;min-width:60px">
+                  <div style="width:${pct}%;background:var(--green-light);height:100%;border-radius:4px"></div>
+                </div>
+                <span style="font-size:12px;font-weight:700;color:var(--green-mid)">${pct}%</span>
+              </div>
+            </td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function exportCSV() {
+  const data = window._rekapData;
+  if (!data || !data.length) { toast('⚠️ Tampilkan rekap dulu!'); return; }
+  let csv = 'No,Nama,Hadir,Sakit,Izin,Alfa\n';
+  data.forEach((r,i) => { csv += `${i+1},"${r.nama}",${r.h},${r.s},${r.iz},${r.a}\n`; });
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'rekap-hadir.csv'; a.click();
+  toast('⬇️ CSV berhasil <span class="gold">diunduh</span>');
+}
+
+// ── DATA SANTRI ──
+function tambahSantri() {
+  const inp = document.getElementById('input-nama');
+  const nama = inp.value.trim();
+  if (!nama) return;
+  const santri = getSantri();
+  if (santri.includes(nama)) { toast('⚠️ Nama sudah ada!'); return; }
+  santri.push(nama);
+  saveSantri(santri);
+  inp.value = '';
+  renderSantriManage();
+  renderAbsensi();
+  toast(`✅ Santri <span class="gold">${nama}</span> ditambahkan`);
+}
+
+function hapusSantri(nama) {
+  if (!confirm(`Hapus santri "${nama}"? Data absensinya akan tetap tersimpan.`)) return;
+  const santri = getSantri().filter(s => s !== nama);
+  saveSantri(santri);
+  renderSantriManage();
+  renderAbsensi();
+  toast(`🗑️ <span class="gold">${nama}</span> dihapus`);
+}
+
+function renderSantriManage() {
+  const santri = getSantri();
+  document.getElementById('jumlah-santri').textContent = santri.length;
+  const el = document.getElementById('santri-manage-list');
+  if (!santri.length) {
+    el.innerHTML = `<div class="empty-state"><div class="icon">👥</div><p>Belum ada santri. Tambahkan di atas.</p></div>`;
+    return;
+  }
+  el.innerHTML = santri.map((nama, i) => `
+    <div class="santri-item">
+      <div class="santri-no">${i+1}</div>
+      <span>${nama}</span>
+      <button class="btn btn-danger btn-sm" onclick="hapusSantri('${nama.replace(/'/g,"\\'")}')">Hapus</button>
+    </div>
+  `).join('');
+}
+
+// ── RIWAYAT ──
+function renderRiwayat() {
+  const absensi = getAbsensi();
+  const keys = Object.keys(absensi).sort().reverse();
+  const el = document.getElementById('riwayat-list');
+  if (!keys.length) {
+    el.innerHTML = `<div class="empty-state"><div class="icon">🗂️</div><p>Belum ada riwayat absensi.</p></div>`;
+    return;
+  }
+  el.innerHTML = keys.map(k => {
+    const [date, sesi] = k.split('||');
+    const data = absensi[k];
+    const names = Object.keys(data);
+    let h=0,s=0,iz=0,a=0;
+    names.forEach(n => {
+      if(data[n]==='Hadir') h++;
+      else if(data[n]==='Sakit') s++;
+      else if(data[n]==='Izin') iz++;
+      else if(data[n]==='Alfa') a++;
+    });
+    return `<div style="padding:12px 0;border-bottom:1px solid var(--cream-dark)">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
+        <div>
+          <div style="font-weight:700;font-size:14px">${formatDate(date)} — Ngaji ${sesi}</div>
+          <div style="font-size:12px;color:var(--text-light);margin-top:2px">${names.length} santri dicatat</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span class="badge badge-hadir">${h} Hadir</span>
+          <span class="badge badge-sakit">${s} Sakit</span>
+          <span class="badge badge-izin">${iz} Izin</span>
+          <span class="badge badge-alfa">${a} Alfa</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── HELPERS ──
+function formatDate(d) {
+  if (!d) return '-';
+  const opt = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+  return new Date(d + 'T00:00:00').toLocaleDateString('id-ID', opt);
+}
+
+function toast(msg, dur=2800) {
+  const el = document.getElementById('toast');
+  el.innerHTML = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), dur);
+}
+</script>
+</body>
+</html>
